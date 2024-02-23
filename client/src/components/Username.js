@@ -28,7 +28,7 @@ export default function Username(){
                         <span className='text-grey-500'>
                             Not a Member 
                             <u>
-                                <Link className='text-red-500' to="/register">Register Now</Link>
+                                <Link className='text-red-500' to="/register">Update Now 2</Link>
                             </u>
                         </span>
                     </div>
