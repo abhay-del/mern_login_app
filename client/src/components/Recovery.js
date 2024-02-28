@@ -33,20 +33,20 @@ export default function Recovery(){
                     </span>
                 </div>
                 <form className="py-20" onSubmit={formik.handleSubmit}>
-                    <div className="textbox flex flex-col items-center" >
-                        <span className='py-4 text-sm text-left text-gray-500'>
-                            Enter 6 digit OTP sent to your email address.
-                        </span>
-                        <input {...formik.getFieldProps('password')} className={styles.textbox} type="text" placeholder='Password' style={{marginBottom:'10px'}} />
-                        <button className={styles.btn} type='submit'>Sign Up</button>
+                    <div className="textbox flex flex-col items-center gap-6" >
+                        <div className='input text-center'>
+                            <span className='py-4 text-sm text-left text-gray-500'>
+                                Enter 6 digit OTP sent to your email address.
+                            </span>
+                            <input className={styles.textbox} type="number" placeholder='OTP' style={{marginBottom:'10px'}} />
+                        </div>
+                        <button className={styles.btn} type='submit'>Recover</button>
                     </div>
 
                     <div className="text-center py-4">
                         <span className='text-grey-500'>
-                            Forgot Password? 
-                            <u>
-                                <Link className='text-red-500' to="/register">Recover Now!</Link>
-                            </u>
+                            Can't get OTP? 
+                            <button className='text-red-500'>Resend</button>
                         </span>
                     </div>
                 </form>
