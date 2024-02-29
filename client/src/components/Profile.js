@@ -3,10 +3,11 @@ import {Link} from 'react-router-dom'
 import avatar from '../assets/profile.png';
 import { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
-import { passwordValidate,registerValidation } from '../helper/validate';
+import { profileValidation } from '../helper/validate';
 import convertToBase64 from '../helper/convert';
 
 import styles from '../styles/Username.module.css'
+import extend from '../styles/Profile.module.css'
 
 export default function Profile(){
 
@@ -14,11 +15,13 @@ export default function Profile(){
 
     const formik = useFormik({
         initialValues : {
+            firstname : '',
+            lastname : '',
             email : 'admin@gmail.com',
-            username : 'admin',
-            password : 'admin@123'
+            mobile : '',
+            address : ''
         },
-        validate : registerValidation,
+        validate : profileValidation,
         validateOnBlur : false,
         validateOnChange : false,
         onSubmit : async values => {
@@ -38,7 +41,7 @@ export default function Profile(){
        <div className='container mx-auto'>
         <Toaster position='top-center' reverseOrder={false}></Toaster>
         <div className='flex justify-center items-center h-screen'>
-            <div className={styles.glass}>
+            <div className={`${styles.glass} ${extend.glass}`} style={{paddingTop:'2rem'}}>
                 <div className="title flex flex-col items-center">
                     <h4 className='text-5xl font-bold'>Profile</h4>
                     <span className="py-4 text-xl w-2/3 text-center text-gray-500">
@@ -48,20 +51,20 @@ export default function Profile(){
                 <form className="py-1" onSubmit={formik.handleSubmit}>
                     <div className="profile flex justify-center py-4">
                         <label htmlFor='profile'>
-                            <img src={file || avatar} className={styles.profile_img} alt="avatar" />
+                            <img src={file || avatar} className={`${styles.profile_img} ${extend.profile_img}`} alt="avatar" />
                         </label>
                         <input onChange={onUpload} type="file" id="profile" name='profile'/>
                     </div>
                     <div className="textbox flex flex-col items-center gap-6">
                         <div className="name flex w-3/4 gap-10">
-                            <input {...formik.getFieldProps('firstname')} className={styles.textbox} type="text" placeholder='Firstname*'/>
-                            <input {...formik.getFieldProps('lastname')} className={styles.textbox} type="text" placeholder='Lastname*'/>
+                            <input {...formik.getFieldProps('firstname')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Firstname*'/>
+                            <input {...formik.getFieldProps('lastname')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Lastname*'/>
                         </div>
                         <div className="name flex w-3/4 gap-10">
-                            <input {...formik.getFieldProps('mobile')} className={styles.textbox} type="text" placeholder='Mobile No.*'/>
-                            <input {...formik.getFieldProps('email')} className={styles.textbox} type="text" placeholder='Email*'/>
+                            <input {...formik.getFieldProps('mobile')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Mobile No.*'/>
+                            <input {...formik.getFieldProps('email')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Email*'/>
                         </div>
-                        <input {...formik.getFieldProps('address')} className={styles.textbox} type="text" placeholder='Address'/>
+                        <input {...formik.getFieldProps('address')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Address'/>
                         <button className={styles.btn} type='submit'>Register</button>
                     </div>
 
