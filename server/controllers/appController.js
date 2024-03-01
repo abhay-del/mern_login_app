@@ -1,3 +1,8 @@
+import UserModel from "../model/User.model.js";
+import bcrypt from 'bcrypt';
+
+
+
 
 /** POST: http://localhost:8070/api/register 
  * @param : {
@@ -12,7 +17,64 @@
 }
 */
 export async function register(req,res){
-    res.json('Register route');
+    
+    try{
+        const { username, password,profile,email } = req.body;
+
+        //check the existing user
+        const existUsername = new Promise((resolve, reject) => {
+            UserModel.findOne({username})
+            .then((username) => {
+                if(username) reject({error : "Please use unique username"});
+                resolve();
+            }).catch((err)=>{
+                console.log(err);
+            });
+        });
+
+        //check the existing email
+        const existEmail = new Promise((resolve, reject) => {
+            UserModel.findOne({username})
+                .then((email) => {
+                    if(email) reject({error : "Please use unique email"});
+                    resolve();
+                }).catch((err)=>{
+                    console.log(err);
+                });
+        });
+
+        Promise.all([existUsername,existEmail])
+            .then(()=>{
+                if(password){
+                    bcrypt.hash(password,10)
+                        .then( hashedPassword => {
+                            console.log("inside save")
+                            const user = new UserModel({
+                                username,
+                                password: hashedPassword,
+                                profile: profile || '',
+                                email
+                            });
+
+                            //return save result as a response
+                            user.save()
+                                .then(result => res.status(201).send({msg: "User Register Successfully"}))
+                                .catch(error => res.status(500).send({error}))
+
+                        }).catch(error => {
+                            return res.status(500).send({
+                                error: "Unable to hashed password"
+                            });
+                        });
+                }
+            }).catch(error => {
+                return res.status(500).send({error});
+            });
+    } catch(error){
+        return res.status(500).send(error);
+    }
+
+
 }
 
 /** POST: http://localhost:8070/api/login 
