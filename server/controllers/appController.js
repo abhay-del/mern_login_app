@@ -1,6 +1,6 @@
 import UserModel from "../model/User.model.js";
 import bcrypt from 'bcrypt';
-
+import jwt from "jsonwebtoken"; 
 
 
 
@@ -58,7 +58,8 @@ export async function register(req,res){
 
                             //return save result as a response
                             user.save()
-                                .then(result => res.status(201).send({msg: "User Register Successfully"}))
+                                .then(result => res.status(201).send({msg: "User Register Successfully",
+                                result:result}))
                                 .catch(error => res.status(500).send({error}))
 
                         }).catch(error => {
@@ -84,7 +85,28 @@ export async function register(req,res){
 }
 */
 export async function login(req,res){
-    res.json('Register route');
+    
+    const {username,password} = req.body;
+    try{
+        UserModel.findOne()
+            .then(user=>{
+                bcrypt.compare(password,user.password)
+                    .then(passwordCheck => {
+                        if(!passwordCheck) return res.status(400).send({error: "Don't Have Password"})
+
+                        // create jwt token
+                        jwt.sign()
+                    })
+                    .catch(error=> {
+                        return res.status(400).send({error : "Password does not Match"})
+                    })
+            })
+            .catch(error => {
+                return res.status(404).send({error : "Username not Found"});
+            })
+    }catch (error){
+        return res.status(500).send({error});
+    }
 }
 
 /** GET: http://localhost:8070/api/user/example123 */
