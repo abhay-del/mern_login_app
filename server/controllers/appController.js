@@ -216,11 +216,46 @@ export async function verifyOTP(req,res){
 
 /** GET: http://localhost:8070/api/createResetSession */
 export async function createResetSession(req,res){
-    res.json('createResetSession route');
+    if(req.app.locals.resetSession){
+        req.app.locals.resetSession = false;
+        return res.status(201).send({msg: "Access Granted!"});
+    }
+    return res.status(440).send({error: "Session Expired!"});
 }
 
 
 /** PUT: http://localhost:8070/api/resetPassword */
 export async function resetPassword(req,res){
-    res.json('resetPassword route');
+    try{
+        if(!req.app.locals.resetSession) return res.status(440).send({error : "Session Expired!"});
+        const {username, password} = req.body;
+        try{
+
+            UserModel.findOne({username})
+                .then(user =>{
+                    bcrypt.hash(password,10)
+                        .then(hashedPassword => {
+                            UserModel.updateOne({username : username},
+                                {password : hashedPassword})
+                                .then(updatedUser=>{
+                                    req.app.locals.resetSession = false;
+                                    return res.status(201).send({msg:"Record Updated!"})
+                                })
+                                .catch(e=>{e})
+                        })
+                        .catch(e => {
+                            return res.status(500).send({
+                                error : "Unable to hashed password!"
+                            })
+                        })
+                })
+                .catch(error => {
+                    return res.status(404).send({error : "Username not found"});
+                })
+        }catch(error){
+            return res.status(404).send({error})
+        }
+    } catch(error){
+        return res.status(401).send({error})
+    }   
 }
