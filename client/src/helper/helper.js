@@ -10,7 +10,7 @@ axios.defaults.baseURL = 'http://localhost:8070';
 export async function authenticate(username){
     try{
         console.log(process.env.REACT_APP_SERVER_DOMAIN);
-        return await axios.post('/api/authenticate',{username})
+        return await axios.post('http://localhost:8070/api/authenticate',{username})
     } catch (error){
         return {error : "Username doesn't exist...!"}
     }
