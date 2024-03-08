@@ -10,7 +10,7 @@ let nodeConfig = {
     auth: {
       user: ENV.EMAIL,
       pass: ENV.PASSWORD,
-    },
+    }
 };
 
 let transporter = nodemailer.createTransport(nodeConfig);
