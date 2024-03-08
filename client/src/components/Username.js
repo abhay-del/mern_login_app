@@ -52,9 +52,9 @@ export default function Username(){
 
                     <div className="text-center py-4">
                         <span className='text-grey-500'>
-                            Not a Member 
+                            Not a Member? 
                             <u>
-                                <Link className='text-red-500' to="/register">Update Now 2</Link>
+                                <Link className='text-red-500' to="/register">Register Now!!</Link>
                             </u>
                         </span>
                     </div>
