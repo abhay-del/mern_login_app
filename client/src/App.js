@@ -10,6 +10,9 @@ import Recovery from './components/Recovery';
 import Profile from './components/Profile';
 import PageNotFound from './components/PageNotFound';
 
+/** auth Middleware */
+import { Authorization } from './middleware/auth';
+
 /** root routes  */
 const router = createBrowserRouter([
   {
@@ -34,7 +37,7 @@ const router = createBrowserRouter([
   },
   {
     path : '/profile',
-    element : <Profile></Profile>
+    element : <Authorization><Profile /></Authorization>
   },
   {
     path : '/*',

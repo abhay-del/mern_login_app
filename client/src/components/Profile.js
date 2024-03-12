@@ -1,32 +1,47 @@
 import React, { useState } from 'react'
-import {Link} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom'
 import avatar from '../assets/profile.png';
-import { Toaster } from 'react-hot-toast';
+import { Toaster, toast } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import { profileValidation } from '../helper/validate';
 import convertToBase64 from '../helper/convert';
+import useFetch from '../hooks/fetch.hook';
+import { updateUser } from '../helper/helper';
 
 import styles from '../styles/Username.module.css'
 import extend from '../styles/Profile.module.css'
 
+
 export default function Profile(){
 
-    const [file,setFile] = useState()
+    const [file,setFile] = useState();
+    const [{ isLoading, apiData, serverError}]= useFetch()
+    const navigate = useNavigate();
 
     const formik = useFormik({
         initialValues : {
-            firstname : '',
-            lastname : '',
-            email : 'admin@gmail.com',
-            mobile : '',
-            address : ''
+            firstname : apiData?.firstname || '',
+            lastname : apiData?.lastname || '',
+            email : apiData?.email || '',
+            mobile : apiData?.mobile || '',
+            address : apiData?.address || ''
         },
+        enableReinitialize : true,
         validate : profileValidation,
         validateOnBlur : false,
         validateOnChange : false,
         onSubmit : async values => {
-            values = await Object.assign(values, {profile : file || ''})
-            console.log(values);
+            values = await Object.assign(values, {profile : file || apiData?.profile || ''})
+
+            let updatePromise = updateUser(values);
+
+            toast.promise(updatePromise,{
+                loading : 'Updating...',
+                success : <b>Update Successfully...!</b>,
+                error : <b>Could Not Update!</b>
+            })
+
+            
         }
     })
 
@@ -35,6 +50,16 @@ export default function Profile(){
         const base64 = await convertToBase64(e.target.files[0]);
         setFile(base64);
     }
+
+    /** logout handler function */
+    function userLogout(){
+        localStorage.removeItem('token');
+        navigate('/');
+    }
+
+
+    if(isLoading) return <h1 className='text-2xl fint-bold'>Loading</h1>
+    if(serverError) return <h1 className='text-2xl fint-bold'>{serverError.message}</h1>
 
 
     return (
@@ -51,7 +76,7 @@ export default function Profile(){
                 <form className="py-1" onSubmit={formik.handleSubmit}>
                     <div className="profile flex justify-center py-4">
                         <label htmlFor='profile'>
-                            <img src={file || avatar} className={`${styles.profile_img} ${extend.profile_img}`} alt="avatar" />
+                            <img src={apiData?.profile ||file || avatar} className={`${styles.profile_img} ${extend.profile_img}`} alt="avatar" />
                         </label>
                         <input onChange={onUpload} type="file" id="profile" name='profile'/>
                     </div>
@@ -65,13 +90,13 @@ export default function Profile(){
                             <input {...formik.getFieldProps('email')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Email*'/>
                         </div>
                         <input {...formik.getFieldProps('address')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Address'/>
-                        <button className={styles.btn} type='submit'>Register</button>
+                        <button className={styles.btn} type='submit'>Update</button>
                     </div>
 
                     <div className="text-center py-4">
                         <span className='text-grey-500'>
                             Come back later? 
-                                <Link className='text-red-500' to="/">Logout</Link>
+                                <button onClick={userLogout} className='text-red-500' to="/">Logout</button>
                         </span>
                     </div>
                 </form>

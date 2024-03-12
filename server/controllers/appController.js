@@ -150,6 +150,7 @@ export async function getUser(req,res){
                 //remove password from user
                 // mongoose return unnecessary data with object so convert it into json
                 const {password, ...rest} = Object.assign({}, user.toJSON());
+                console.log("rest ",rest);
                 return res.status(201).send(rest);
             })
             .catch(error => {
@@ -179,7 +180,7 @@ export async function updateUser(req,res){
         if(userId){
             const body = req.body;
             //update the data
-            console.log(userId);
+            console.log(body);
             UserModel.updateOne({_id : userId},body,function(err,data){
                 if(err) throw err;
 
