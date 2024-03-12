@@ -68,7 +68,7 @@ export default function Password(){
                         <span className='text-grey-500'>
                             Forgot Password? 
                             <u>
-                                <Link className='text-red-500' to="/register">Recover Now!</Link>
+                                <Link className='text-red-500' to="/recovery">Recover Now!</Link>
                             </u>
                         </span>
                     </div>

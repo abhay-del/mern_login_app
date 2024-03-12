@@ -11,7 +11,7 @@ import Profile from './components/Profile';
 import PageNotFound from './components/PageNotFound';
 
 /** auth Middleware */
-import { Authorization } from './middleware/auth';
+import { Authorization, ProtectRoute } from './middleware/auth';
 
 /** root routes  */
 const router = createBrowserRouter([
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
   },
   {
     path : '/password',
-    element : <Password></Password>
+    element : <ProtectRoute><Password/></ProtectRoute>
   },
   {
     path : '/reset',
