@@ -52,7 +52,7 @@ export const registerMail = async (req,res) => {
         subject : subject || "Signup Successful",
         html : emailBody
     }
-
+    console.log("message ", message);
     transporter.sendMail(message)
         .then(() => {
             return res.status(200).send({msg : "You should receive an email from us."})

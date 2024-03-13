@@ -69,14 +69,13 @@ export default function Recovery(){
                         </div>
                         <button className={styles.btn} type='submit'>Recover</button>
                     </div>
-
-                    <div className="text-center py-4">
-                        <span className='text-grey-500'>
-                            Can't get OTP? 
-                            <button onClick={resendOTP} className='text-red-500'>Resend</button>
-                        </span>
-                    </div>
                 </form>
+                <div className="text-center py-4">
+                    <span className='text-grey-500'>
+                        Can't get OTP? 
+                        <button onClick={resendOTP} className='text-red-500'>Resend</button>
+                    </span>
+                </div>
             </div>
         </div>
        </div>  
