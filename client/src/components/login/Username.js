@@ -3,8 +3,8 @@ import {Link, useNavigate} from 'react-router-dom';
 import avatar from '../assets/profile.png';
 import { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
-import { usernameValidate } from '../helper/validate';
-import { useAuthStore } from '../store/store.js';
+import { usernameValidate } from '../../helper/validate';
+import { useAuthStore } from '../../store/store.js';
 
 import styles from '../styles/Username.module.css'
 

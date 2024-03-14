@@ -2,13 +2,16 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 /**import all components  */
-import Username from './components/Username';
-import Password from './components/Password';
-import Reset from './components/Reset';
-import Register from './components/Register';
-import Recovery from './components/Recovery';
-import Profile from './components/Profile';
-import PageNotFound from './components/PageNotFound';
+import Username from './components/login/Username';
+import Password from './components/login/Password';
+import Reset from './components/login/Reset';
+import Register from './components/login/Register';
+import Recovery from './components/login/Recovery';
+import Profile from './components/login/Profile';
+import PageNotFound from './components/login/PageNotFound';
+
+import Main from './components/quiz/Main';
+import Quiz from './components/quiz/Quiz';
 
 /** auth Middleware */
 import { Authorization, ProtectRoute } from './middleware/auth';
@@ -42,6 +45,18 @@ const router = createBrowserRouter([
   {
     path : '/*',
     element : <PageNotFound></PageNotFound>
+  },
+  {
+    path : '/root',
+    element : <Main></Main>
+  },
+  {
+    path : '/quiz',
+    element : <Quiz></Quiz>
+  },
+  {
+    path : '/result',
+    element : <div>Result Component</div>
   },
 ])
 
