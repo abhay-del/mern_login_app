@@ -59,6 +59,7 @@ export async function verifyPassword({username,password}){
     try{
         if(username){
            const { data } = await axios.post('http://localhost:8070/api/login',{username,password});
+           console.log("data ",data)
            return Promise.resolve({data});
         }
     }catch(error){

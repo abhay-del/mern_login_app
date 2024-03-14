@@ -12,7 +12,8 @@ import styles from '../styles/Username.module.css'
 export default function Recovery(){
 
     const navigate = useNavigate();
-    const {username} = useAuthStore(state => state.auth);
+    const {username} = {username:"admin123"};//useAuthStore(state => state.auth);
+    console.log("username ",username)
     const [OTP,setOTP] = useState();
     
     

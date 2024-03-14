@@ -37,6 +37,8 @@ export default function Password(){
                     let { token } = res.data;
                     localStorage.setItem('token', token);
                     navigate('/profile');
+                }).catch(error =>{
+                        return {error};
                 })
             }catch(error){
                 toast.error("Password not match!")
