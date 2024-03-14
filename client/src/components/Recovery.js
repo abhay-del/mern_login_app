@@ -5,6 +5,7 @@ import { passwordValidate } from '../helper/validate';
 import { useAuthStore } from '../store/store';
 import { generateOTP,verifyOTP } from '../helper/helper';
 import {useNavigate} from 'react-router-dom';
+import useFetch from '../hooks/fetch.hook';
 
 import styles from '../styles/Username.module.css'
 
@@ -13,25 +14,29 @@ export default function Recovery(){
     const navigate = useNavigate();
     const {username} = useAuthStore(state => state.auth);
     const [OTP,setOTP] = useState();
-
+    
+    
     useEffect(() => {
+        console.log("username ", username)
+        if(!username) return navigate('/password');
         generateOTP(username).then((OTP) => {
             console.log(OTP)
             if(OTP) return toast.success("OTP has been sent to your email");
             return toast.error("Problem while generating OTP!");
         })
     },[username]);
-
+    
     async function onSubmit(e){
         e.preventDefault();
-
-        let {status} = await verifyOTP({username, code : OTP});
-        if(status === 201){
-            toast.success("Verify Successfully!");
-            return navigate('/reset');
+        try{
+            let {status} = await verifyOTP({username, code : OTP});
+            if(status === 201){
+                toast.success("Verify Successfully!");
+                return navigate('/reset');
+            }
+        }catch(error){
+            return  toast.error("Wrong OTP! Check Email Again!")
         }
-
-        return  toast.error("Wrong OTP! Check Email Again!")
     }
     // handler function of resend OTP
     function resendOTP(){

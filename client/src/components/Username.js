@@ -24,7 +24,7 @@ export default function Username(){
         validateOnBlur : false,
         validateOnChange : false,
         onSubmit : async values => {
-            console.log(values);
+            console.log("27 ",values);
             setUsername(values.username);
             navigate('/password');
         }

@@ -11,6 +11,7 @@ export async function getUsername(){
     if(!token) return Promise.reject("Cannot find Token");
     //console.log(token)
     let decode = jwtDecode(token)
+    console.log("decode ", decode)
     return decode;
 }
 
@@ -81,7 +82,7 @@ export async function updateUser(response){
 /** generate otp */
 export async function generateOTP(username){
     try{
-        
+        console.log("generateOTP ",username)
         const {data : {code},status}= await axios.get('http://localhost:8070/api/generateOTP',{params : {username}});
        
         if(status === 201){
