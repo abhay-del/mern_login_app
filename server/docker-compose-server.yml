@@ -1,0 +1,8 @@
+version: '3'
+ 
+services:
+  # Node.js Backend Service
+  server:
+    image: server # Choose an appropriate Node.js version
+    ports:
+      - "8070:8070"  # Adjust the port as needed

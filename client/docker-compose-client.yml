@@ -1,0 +1,8 @@
+version: '3'
+ 
+services:
+  # Node.js Backend Service
+  client:
+    image: client # Choose an appropriate Node.js version
+    ports:
+      - "3000:3000"  # Adjust the port as needed
