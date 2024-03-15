@@ -1,19 +1,20 @@
+# Use Node.js 18 as base image
 FROM node:18
 
-# Working dir
+# Set working directory
 WORKDIR /usr/src/app
 
-# Copy files from Build
+# Copy package.json and package-lock.json files
 COPY package*.json ./
 
-# Install Files
-RUN npm install 
+# Install dependencies
+RUN npm install --quiet
 
-# Copy SRC
+# Copy the rest of the application source code
 COPY . .
 
-# Build
-RUN npm run build
+# Expose port
+EXPOSE 8070
 
-# Open Port
-#EXPOSE 3000
+# Command to run the application
+CMD ["npm", "start"]
