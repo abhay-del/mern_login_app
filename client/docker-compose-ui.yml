@@ -1,0 +1,9 @@
+version: '3'
+ 
+services:
+  # Node.js Backend Service
+  ui:
+    image: ui # Choose an appropriate Node.js version
+    ports:
+      - "3000:3000"  # Adjust the port as needed
+    command: npm start  # Adjust the start command based on your project s
