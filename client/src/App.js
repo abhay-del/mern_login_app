@@ -15,7 +15,7 @@ import Quiz from './components/quiz/Quiz';
 import Result from './components/quiz/Result';
 
 
-import './styles/App.css';
+
 
 /** auth Middleware */
 import { Authorization, ProtectRoute } from './middleware/auth';

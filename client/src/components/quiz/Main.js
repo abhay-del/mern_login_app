@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 
 
 import '../../styles/Main.css'
+import '../../styles/App.css';
 
 export default function Main(){
 
     const inputRef = useRef(null);
 
     return(
-        <div className='container'>
+        <div className='container1'>
             <h1 className='title text-light'>Quiz Application</h1>
 
             <ol>
