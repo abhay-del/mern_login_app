@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import {Link, useNavigate} from 'react-router-dom'
-import avatar from '../assets/profile.png';
+import avatar from '../../assets/profile.png';
 import { toast,Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
-import { passwordValidate,registerValidation } from '../helper/validate';
-import convertToBase64 from '../helper/convert.js';
-import { registerUser } from '../helper/helper.js';
+import { passwordValidate,registerValidation } from '../../helper/validate';
+import convertToBase64 from '../../helper/convert.js';
+import { registerUser } from '../../helper/helper.js';
 
-import styles from '../styles/Username.module.css'
+import styles from '../../styles/Username.module.css'
 
 export default function Register(){
 

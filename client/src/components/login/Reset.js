@@ -1,15 +1,15 @@
 import React from 'react'
 import {Link, Navigate} from 'react-router-dom'
-import avatar from '../assets/profile.png';
+import avatar from '../../assets/profile.png';
 import toast, { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
-import { resetPasswordValidation } from '../helper/validate';
-import { resetPassword } from '../helper/helper';
-import { useAuthStore } from '../store/store';
+import { resetPasswordValidation } from '../../helper/validate';
+import { resetPassword } from '../../helper/helper';
+import { useAuthStore } from '../../store/store';
 import { useNavigate } from 'react-router-dom';
-import useFetch from '../hooks/fetch.hook';
+import useFetch from '../../hooks/fetch.hook';
 
-import styles from '../styles/Username.module.css'
+import styles from '../../styles/Username.module.css'
 
 export default function Password(){
 

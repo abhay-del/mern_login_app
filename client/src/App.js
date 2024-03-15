@@ -12,6 +12,10 @@ import PageNotFound from './components/login/PageNotFound';
 
 import Main from './components/quiz/Main';
 import Quiz from './components/quiz/Quiz';
+import Result from './components/quiz/Result';
+
+
+import './styles/App.css';
 
 /** auth Middleware */
 import { Authorization, ProtectRoute } from './middleware/auth';
@@ -56,7 +60,7 @@ const router = createBrowserRouter([
   },
   {
     path : '/result',
-    element : <div>Result Component</div>
+    element : <Result></Result>
   },
 ])
 
