@@ -34,6 +34,7 @@
 }
 
  ol li {
-    list-style: decimal;
+    list-style: circle;
     list-style-position: inside;
+    color: white;
 } 
