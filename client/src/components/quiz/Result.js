@@ -47,6 +47,7 @@ export default function Result(){
             </div>
 
             <div className='container1'>
+                {/** Data Table */}
                 <ResultTable></ResultTable>
             </div>
 

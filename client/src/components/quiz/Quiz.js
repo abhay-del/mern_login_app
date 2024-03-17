@@ -1,11 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Questions from './Questions';
 
-
+/** redux store import */
+import { useSelector} from 'react-redux';
 
 import '../../styles/App.css';
 
 export default function Quiz(){
+
+    const state = useSelector(state => state);
+
+    useEffect(() => {
+        //console.log(state)
+    })
 
     /**Next Button Event hanlder */
     function onNext(){
