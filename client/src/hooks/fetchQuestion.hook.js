@@ -13,19 +13,20 @@ export const useFetchQuestion = () => {
         apiData : [],
         serverError : null
     });
-    console.log("inside hooks")
+    //console.log("inside hooks")
     useEffect(() => {
         setGetData(prev => ({...prev,isLoading : true}));
 
         /** async function for fetching data from backend */
         (async () => {
-            console.log("inside async 1")
+            //console.log("inside async 1")
             try{
                 let question = await data;
+                //console.log(question)
                 if(question.length > 0){
                     setGetData(prev => ({isLoading : true}));
                     setGetData(prev => ({apiData : question}));
-                    console.log("inside async 2")
+                    //console.log("inside async 2")
                     /** dispatch an action*/
                     dispatch(Action.startExamAction(question))
                 }else{
@@ -39,4 +40,14 @@ export const useFetchQuestion = () => {
     },[dispatch]);
 
     return [getData,setGetData];
+}
+
+
+
+export const MoveNextQuestion = () => async (dispatch)=>{
+    try{
+        dispatch(Action.moveNextAction())
+    } catch (error){
+        console.log(error);
+    }
 }
