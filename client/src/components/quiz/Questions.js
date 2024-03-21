@@ -5,21 +5,21 @@ import { useSelector } from 'react-redux';
 /** custom hooks */
 import { useFetchQuestion } from '../../hooks/fetchQuestion.hook';
 
-export default function Questions(){
+export default function Questions({ onChecked }){
 
     const [checked, setChecked] = useState(undefined);
     const [{ isLoading, apiData , serverError }] = useFetchQuestion();
-    const question = data[0]; 
     const  questions  = useSelector(state => state.questions.queue[state.questions.trace]);
    
 
     useEffect(() => {
-        console.log(questions)
+        //console.log(questions)
     })
 
-    function onSelect(){
+    function onSelect(i){
        // setChecked(true);
-        //console.log('radio button change')
+        console.log('radio button change', i)
+        onChecked(i);
     }
 
     if(isLoading) return <h3 className='text-light'> Loading...</h3>
@@ -38,7 +38,7 @@ export default function Questions(){
                             value={checked}
                             name="options"
                             id={`q${i}-option`}
-                            onChange={onSelect()}
+                            onChange={() => onSelect(i)}
                         />
                         <label className='text-primary' htmlFor={`q${i}-option`}>{q}</label>
                         <div className="check "></div>
