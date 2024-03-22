@@ -32,7 +32,8 @@ export default function Quiz(){
             /** update the trace value by one using MoveNextAction  */
             dispatch(MoveNextQuestion());
 
-            if(check){
+            /** insert a new result in the array. */
+            if(check && result.length <= trace){
                 dispatch(PushAnswer(check));
                 setChecked(undefined);
             }
@@ -67,8 +68,8 @@ export default function Quiz(){
             <Questions onChecked={onChecked}/>
             
            <div className="grid">
-            <button className='btn prev' onClick={onPrev}>Prev</button>
-            <button className='btn next' onClick={onNext}>Next</button>
+            {trace>0? <button className='btn prev' onClick={onPrev}>Prev</button>: <div></div>}
+            {queue.length!= trace?<button className='btn next' onClick={onNext}>Next</button>:<></>}
            </div>
 
         </div>
