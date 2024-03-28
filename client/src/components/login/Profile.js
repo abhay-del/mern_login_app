@@ -92,7 +92,14 @@ export default function Profile(){
                         <input {...formik.getFieldProps('address')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Address'/>
                         <button className={styles.btn} type='submit'>Update</button>
                     </div>
-
+                    <div className="text-center py-4">
+                        <span className='text-grey-500'>
+                            Go To Quiz Section?
+                            <u>
+                                <Link className='text-red-500' to="/root">Quiz</Link>
+                            </u>
+                        </span>
+                    </div>
                     <div className="text-center py-4">
                         <span className='text-grey-500'>
                             Come back later? 

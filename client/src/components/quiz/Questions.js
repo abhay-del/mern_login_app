@@ -14,18 +14,19 @@ export default function Questions({ onChecked }){
     const [{ isLoading, apiData , serverError }] = useFetchQuestion();
     const  questions  = useSelector(state => state.questions.queue[state.questions.trace]);
     const dispatch = useDispatch()
-
+    
     useEffect(() => {
         //console.log({trace,checked})
+        console.log(isLoading)
         dispatch(updateResult({trace,checked}));
     },[checked])
 
     function onSelect(i){
         onChecked(i);
         setChecked(i);
-        dispatch(updateResult({trace,checked}));
+        dispatch(updateResult({trace,checked}))
     }
-
+    console.log(isLoading)
     if(isLoading) return <h3 className='text-light'> Loading...</h3>
     if(serverError) return <h3 className='text-light'>{serverError || "Unknown Error..."}</h3>
 

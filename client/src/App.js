@@ -13,7 +13,7 @@ import PageNotFound from './components/login/PageNotFound';
 import Main from './components/quiz/Main';
 import Quiz from './components/quiz/Quiz';
 import Result from './components/quiz/Result';
-
+import { CheckUserExist } from './helper/helper';
 
 
 
@@ -56,11 +56,11 @@ const router = createBrowserRouter([
   },
   {
     path : '/quiz',
-    element : <Quiz></Quiz>
+    element : <CheckUserExist><Quiz/></CheckUserExist>
   },
   {
     path : '/result',
-    element : <Result></Result>
+    element : <CheckUserExist><Result/></CheckUserExist>
   },
 ])
 

@@ -1,5 +1,8 @@
 import axios from 'axios';
 import {jwtDecode} from 'jwt-decode';
+import { element } from 'prop-types';
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router';
 
 //axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 axios.defaults.baseURL = 'http://localhost:8070';
@@ -120,4 +123,21 @@ export async function resetPassword({username, password}){
     }catch(error){
         return Promise.reject({error});
     }
+}
+
+export function attempts_Number(result){
+    return result.filter(r => r !== undefined).length;
+}
+
+export function earnPoints_Number(result,answers,point){
+    return result.map((element,i) => answers[i] === element).filter(i => i).map(i => point).reduce((prev,curr) => prev + curr,0);
+}
+
+export function flagResult_String(totalPoints,earnPoints){
+    return ((totalPoints * 0.5) < earnPoints);
+}
+
+export function CheckUserExist({children}){
+    const auth = useSelector(state => state.result.userId);
+    return auth ? children : <Navigate to="/root" replace={true}></Navigate>
 }

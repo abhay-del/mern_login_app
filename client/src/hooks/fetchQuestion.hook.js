@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import data from "../database/data";
+import data, {answers} from "../database/data";
 
 /** redux actions */
 import * as Action from '../store/question_reducer';
@@ -13,28 +13,28 @@ export const useFetchQuestion = () => {
         apiData : [],
         serverError : null
     });
-    //console.log("inside hooks")
+    console.log("inside hooks")
     useEffect(() => {
         setGetData(prev => ({...prev,isLoading : true}));
 
         /** async function for fetching data from backend */
         (async () => {
-            //console.log("inside async 1")
+            console.log("inside async 1")
             try{
                 let question = await data;
-                //console.log(question)
+                console.log(question)
                 if(question.length > 0){
-                    setGetData(prev => ({isLoading : true}));
-                    setGetData(prev => ({apiData : question}));
-                    //console.log("inside async 2")
+                    setGetData(prev => ({...prev,isLoading : false}));
+                    setGetData(prev => ({...prev,apiData : {question, answers}}));
+                    console.log("inside async 2")
                     /** dispatch an action*/
-                    dispatch(Action.startExamAction(question))
+                    dispatch(Action.startExamAction({question,answers}))
                 }else{
                     throw new Error("No Question Available"); 
                 }
             } catch (error) {
-                setGetData(prev => ({isLoading : false}));
-                setGetData(prev => ({serverError : error}));
+                setGetData(prev => ({...prev,isLoading : false}));
+                setGetData(prev => ({...prev,serverError : error}));
             }
         })();
     },[dispatch]);

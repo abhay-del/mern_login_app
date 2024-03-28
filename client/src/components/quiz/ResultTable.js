@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function ResultTable(){
+export default function ResultTable({earnPoints,attempts,isPassed}){
     return (
         <div>
             <table>
@@ -15,9 +15,9 @@ export default function ResultTable(){
                 <tbody>
                     <tr className='table-body'> 
                         <td>Abhay</td>
-                        <td>03</td>
-                        <td>20</td>
-                        <td>Passed</td>
+                        <td>{attempts}</td>
+                        <td>{earnPoints}</td>
+                        <td style={{ color : `${isPassed? "green" : "red"}`}}>{isPassed ? "Passed":"Failed"}</td>
                     </tr>
                 </tbody>
             </table>

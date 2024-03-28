@@ -21,7 +21,7 @@ export default function Quiz(){
 
     useEffect(()=> {
         // console.log(trace);
-        // console.log(queue);
+        console.log(queue);
         console.log(result);
     })
 
@@ -33,11 +33,11 @@ export default function Quiz(){
             dispatch(MoveNextQuestion());
 
             /** insert a new result in the array. */
-            if(check && result.length <= trace){
+            if(result.length <= trace){
                 dispatch(PushAnswer(check));
-                setChecked(undefined);
             }
         } 
+        setChecked(undefined);
     }
 
     /**Prev Button Event hanlder */
