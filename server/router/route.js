@@ -3,6 +3,7 @@ const router = Router();
 
 /** import all controllers */
 import * as controllers from '../controllers/appController.js';
+import * as quizControllers from '../controllers/quizController.js';
 import { registerMail } from "../controllers/mailer.js";
 import Auth, {localVariables} from "../middleware/auth.js";
 
@@ -22,6 +23,19 @@ router.route('/createResetSession').get(controllers.createResetSession); //reset
 router.route('/updateUser').put(Auth,controllers.updateUser); // is use to update the user profile
 router.route('/resetPassword').put(controllers.verifyUser,controllers.resetPassword); // use to reset password
 
+/** Quiz Methods */
 
+// /** POST Methods */
+// router.route('/questions').post(controllers.insertQuestions);
+// /** GET Methods */
+router.route('/questions')
+    .get(quizControllers.getQuestions)
+    .post(quizControllers.insertQuestions)
+    .delete(quizControllers.dropQuestions)
+
+router.route('/result')
+    .get(quizControllers.getResult)
+    .post(quizControllers.storeResult)
+    .delete(quizControllers.deleteResult)
 
 export default router;
