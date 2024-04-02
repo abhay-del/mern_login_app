@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import data from '../../database/data';
 import { useDispatch, useSelector } from 'react-redux';
 
 /** custom hooks */

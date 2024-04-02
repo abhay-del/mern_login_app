@@ -1,6 +1,5 @@
 import axios from 'axios';
 import {jwtDecode} from 'jwt-decode';
-import { element } from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router';
 
@@ -143,3 +142,16 @@ export function CheckUserExist({children}){
 }
 
 /** Get Server data */
+export async function getServerData(url, callback){
+    const {data} = await axios.get(url);
+    console.log(data);
+    return callback ? callback(data) : data;
+}
+
+/** Post Server data */
+export async function postServerData(url, result ,callback){
+    const {data} = await axios.post(url, result);
+    console.log(data);
+    return callback ? callback(data) : data;
+}
+

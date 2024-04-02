@@ -11,9 +11,11 @@ import { useSelector,useDispatch} from 'react-redux';
 import '../../styles/App.css';
 import { Navigate } from 'react-router-dom';
 
+
 export default function Quiz(){
 
    // const state = useSelector(state => state);
+    
     const result = useSelector(state => state.result.result);
     const { queue, trace} = useSelector(state => state.questions);
     const dispatch = useDispatch();

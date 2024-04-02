@@ -1,6 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getServerData } from '../../helper/helper';
 
-export default function ResultTable({earnPoints,attempts,isPassed}){
+export default function ResultTable(){
+    
+    const [data,setData] = useState([]);
+
+    useEffect(() => {
+        console.log("inside ResultTsable")
+        getServerData(`${process.env.REACT_APP_SERVER_DOMAIN}/api/result`,(res) => {
+            //console.log("inside getServerData ", res)
+            setData(res);
+        });
+    },[])
+    //console.log(data)
     return (
         <div>
             <table>
@@ -13,12 +25,18 @@ export default function ResultTable({earnPoints,attempts,isPassed}){
                     </tr>
                 </thead>
                 <tbody>
-                    <tr className='table-body'> 
-                        <td>Abhay</td>
-                        <td>{attempts}</td>
-                        <td>{earnPoints}</td>
-                        <td style={{ color : `${isPassed? "green" : "red"}`}}>{isPassed ? "Passed":"Failed"}</td>
-                    </tr>
+                    
+                    {!data ?? <div>No Data Found!</div>}
+                    {
+                        data.map((v,i) => (
+                            <tr className='table-body' key={i}> 
+                                <td>{v?.username || ''}</td>
+                                <td>{v?.attempts || 0}</td>
+                                <td>{v?.points || 0}</td>
+                                <td style={{ color : `${v?.achived === "Passed"? "green" : "red"}`}}>{v?.achived || ''}</td>
+                            </tr>
+                        ))
+                    }
                 </tbody>
             </table>
         </div>

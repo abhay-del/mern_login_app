@@ -9,21 +9,27 @@ import { attempts_Number,earnPoints_Number, flagResult_String } from '../../help
 /** import actions */
 import { resetAllAction } from '../../store/question_reducer';
 import { resetResultAction } from '../../store/result_reducer';
+import { usePublishResult } from '../../hooks/setResult';
 
 
 export default function Result(){
 
     const dispatch = useDispatch();
-    const {questions:{queue,answers}, result : {result, userId}} = useSelector(state => state)
-    
-    useEffect(()=> {
-        console.log(isPassed)
-    })
+    const {questions:{queue,answers}, result : {result, userId}} = useSelector(state => state);
+
 
     const totalPoints = queue.length * 10;
     const attempts = attempts_Number(result);
     const earnPoints = earnPoints_Number(result,answers,10); 
     const isPassed = flagResult_String(totalPoints,earnPoints);
+    
+    console.log({ result, username : userId, attempts, points : earnPoints, achived : isPassed ? "Passed":"Failed"})
+    usePublishResult({ 
+        result, 
+        username : userId, 
+        attempts, points : earnPoints,
+         achived : isPassed ? "Passed":"Failed"
+    })
     
     function onRestart(){
         console.log("on Restart");
@@ -69,7 +75,7 @@ export default function Result(){
 
             <div className='container1'>
                 {/** Data Table */}
-                <ResultTable earnPoints={earnPoints} attempts={attempts} isPassed={isPassed}></ResultTable>
+                <ResultTable></ResultTable>
             </div>
 
         </div>

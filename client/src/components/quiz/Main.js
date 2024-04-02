@@ -1,15 +1,28 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {useDispatch} from 'react-redux';
+import { useFormik } from 'formik';
 
 import '../../styles/Main.css'
 import '../../styles/App.css';
 import { setUserId } from '../../store/result_reducer';
+import {useAuthStore} from '../../store/store';
+import { usernameValidate } from '../../helper/validate';
 
 export default function Main(){
 
     const inputRef = useRef(null);
+    const {username} = useAuthStore(state => state.auth);
     const dispatch = useDispatch();
+console.log(username)
+    const formik = useFormik({
+        initialValues : {
+            username : username
+        },
+        validate : usernameValidate,
+        validateOnBlur : false,
+        validateOnChange : false,
+    })
 
     function startQuiz(){
         if(inputRef.current?.value){
@@ -30,7 +43,7 @@ export default function Main(){
             </ol>
 
             <form id="form">
-                <input ref={inputRef} className='userid' type="text" placeholder='Username' />
+                <input {...formik.getFieldProps('username')} ref={inputRef} className='userid' type="text" placeholder='Username' />
             </form>
 
             <div className='start'>

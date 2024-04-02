@@ -16,10 +16,11 @@ export default function Password(){
     const {username} = useAuthStore(state => state.auth);
     console.log("password 17 ",username)
     const [{ isLoading, apiData, serverError}]= useFetch(`/user/${username}`)
+    console.log(apiData)
 
     const formik = useFormik({
         initialValues : {
-            password : 'admin@123'
+            password : ''
         },
         validate : passwordValidate,
         validateOnBlur : false,
